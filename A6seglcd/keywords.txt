@@ -26,7 +26,9 @@ bat3	KEYWORD2
 bat1off	KEYWORD2
 bat2off	KEYWORD2
 bat3off	KEYWORD2
-dispnum	KEYWORD2	
+dispnum	KEYWORD2
+lcdon	KEYWORD2
+lcdoff	KEYWORD2	
 
 
 

@@ -52,6 +52,17 @@ void a6seglcd::wrclrdata(unsigned char addr, unsigned char sdata)
 	wrDATA(sdata, 8);
 	digitalWrite(_cs, HIGH);
 }
+
+void a6seglcd::lcdon()
+{
+	wrCMD(LCDON);
+}
+
+void a6seglcd::lcdoff()
+{
+	wrCMD(LCDOFF);
+}
+
 void a6seglcd::wrone(unsigned char addr, unsigned char sdata)
 {
 	addr <<= 2;
@@ -125,7 +136,7 @@ void a6seglcd::display(unsigned char addr, unsigned char sdata){
 void a6seglcd::dispnum(float num){//传入显示的数据，最高位为小数点和电量显示，显示数据为0.001-99999.9
 	char buffer1[12];//
 	
-	floatToString(buffer1,num,3);
+	floatToString(buffer1,num,4);
 	String buffer=buffer1;
 	int dpposition;
 	dpposition=buffer.indexOf('.');//寻找小数点位置  取前七位 因为最多显示七位

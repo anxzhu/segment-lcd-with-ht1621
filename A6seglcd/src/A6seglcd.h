@@ -48,6 +48,8 @@ public:
 	void bat3();
 	void bat3off();
 	void dispnum(float num);
+	void lcdon();
+	void lcdoff();
 private:
 	int _cs;
 	int _wr;

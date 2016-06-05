@@ -2,7 +2,7 @@
   a6seglcd lcd;            
   void setup()
   {
-  lcd.run(4,5,6,10);   //difine  cs  write data   backlight  pins  
+  lcd.run(4,5,6,10);   //定义 cs wr data led+这几个管脚 difine  cs  write data   backlight  pins  
   lcd.backlighton();   //开背光（关背光是 backlightoff() ） backlight
   lcd.conf();          //配置 config
   lcd.clr();           //清屏 clearscreen

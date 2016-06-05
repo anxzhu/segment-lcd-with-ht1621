@@ -1,6 +1,9 @@
 /*********************************************************************
 This is a library for 6 segments lcd based on ht1621 drivers
-  
+
+  You can download all the source file at
+  ------> https://www.github.com/anxzhu
+
 Written by anxzhu@qq.com  for OCROBOT.  
 MIT license, check license.txt for more information
 All text above, and the splash screen below must be included in any redistribution
@@ -145,7 +148,6 @@ void a6seglcd::dispnum(float num){//传入显示的数据，最高位为小数�
 	//1    三位小数 1.234
 	//unsigned char lednum[10]={0x7D,0x60,0x3E,0x7A,0x63,0x5B,0x5F,0x70,0x7F,0x7B};//显示 0 1 2 3 4 5 6 7 8 9
 	unsigned  int i;
-	Serial.println(buffer[5]);
 	for(i=0;i<7;i++){
 		
 		if(buffer[i]=='0'){

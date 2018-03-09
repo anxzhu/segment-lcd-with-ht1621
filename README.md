@@ -14,10 +14,7 @@ Restart the IDE.
 * see .ino files to learn more about it
 
 
-##Feedback
-if you have any questions just contact me
 
-* Email(anxzhu#qq.com, replace # to @ )
  
 
 

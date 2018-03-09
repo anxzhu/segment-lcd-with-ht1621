@@ -4,9 +4,6 @@ This is a library for 6 segments lcd based on ht1621 drivers
   You can download all the source file at
   ------> https://www.github.com/anxzhu
 
-Written by anxzhu@qq.com  for OCROBOT.  
-MIT license, check license.txt for more information
-All text above, and the splash screen below must be included in any redistribution
 *********************************************************************/
 
 #include <Arduino.h>

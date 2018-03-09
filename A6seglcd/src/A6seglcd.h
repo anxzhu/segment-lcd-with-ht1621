@@ -1,9 +1,6 @@
 /*********************************************************************
 This is a library for 6 segments lcd based on ht1621 drivers
 
-Written by anxzhu@qq.com   for OCROBOT.  
-MIT license, check license.txt for more information
-All text above, and the splash screen below must be included in any redistribution
 *********************************************************************/
 #ifndef  A6SEGLCD_H_
 #define A6SEGLCD_H_   //防止重复包含

@@ -6,7 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-a6seglcd	KEYWORD1	a6seglcd_arduino
+a6seglcd	KEYWORD1
 
 
 #######################################

@@ -32,17 +32,7 @@ public:
 	void write(unsigned char addr, unsigned char sdata);//
 	void backlighton();//
 	void backlightoff();//
-	void wrone(unsigned char addr, unsigned char sdata);
-	void wrclrdata(unsigned char addr, unsigned char sdata);
-	void wrCLR(unsigned char len);
-	void wrDATA(unsigned char data, unsigned char cnt);
-	void wrCMD(unsigned char CMD);
-	void bat1();
-	void bat1off();
-	void bat2();
-	void bat2off();
-	void bat3();
-	void bat3off();
+	void battlevel(int level);
 	void dispnum(float num);
 	void display();
 	void noDisplay();
@@ -52,5 +42,12 @@ private:
 	int _data_p;
 	int _backlight_p;
 	bool _backlight_en;
+	char _buffer[12];
+	unsigned char _battery[3];
+	void wrone(unsigned char addr, unsigned char sdata);
+	void wrclrdata(unsigned char addr, unsigned char sdata);
+	void wrCLR(unsigned char len);
+	void wrDATA(unsigned char data, unsigned char cnt);
+	void wrCMD(unsigned char CMD);
 };
 #endif

@@ -266,13 +266,12 @@ void HT1621::print(long num){
 	if(num < -99999) // basic checks
 		num = -99999; // clip into -99999
 
-	char localbuffer[7];
-	snprintf(localbuffer,7, "%6li", num);
-	Serial.println(localbuffer);
+	char localbuffer[7]; //buffer to work with in the function
+	snprintf(localbuffer,7, "%6li", num); // convert the decimal into string
 
 	for(int i=0; i<6; i++){
-		_buffer[i] &= 0x80;
-		switch(localbuffer[i]){
+		_buffer[i] &= 0x80; // mask the first bit, used by batter and decimal point
+		switch(localbuffer[i]){ // map the digits to the seg bits
 			case '0':
 				_buffer[i] |= 0x7D;
 				break;

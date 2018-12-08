@@ -13,8 +13,8 @@ This is a library for 6 segments lcd based on ht1621 drivers
 unsigned char battery[3];
 a6seglcd::a6seglcd()
 {
-}                           
-void a6seglcd::run(int cs,int wr,int dat,int backlight)
+}
+void a6seglcd::begin(int cs,int wr,int dat,int backlight)
 {
 	pinMode(cs, OUTPUT);
 	pinMode(wr, OUTPUT);
@@ -93,7 +93,7 @@ void a6seglcd::conf()
 	wrCMD(WDTDIS1);
 	wrCMD(SYSEN);
 	wrCMD(LCDON);
-	
+
 }
 void a6seglcd::wrCLR(unsigned char len) {
 	unsigned char addr = 0;
@@ -122,17 +122,17 @@ void a6seglcd::bat3off() {  //电池中
 	battery[2]=0x00;//wrone(6, 0x80);
 }
 void a6seglcd::clr(){
-	
+
 	wrCLR(16);
-	
+
 }
 void a6seglcd::display(unsigned char addr, unsigned char sdata){
-	
+
 	wrone(addr,sdata);
 }
 void a6seglcd::dispnum(float num){//传入显示的数据，最高位为小数点和电量显示，显示数据为0.001-99999.9
 	char buffer1[12];//
-	
+
 	floatToString(buffer1,num,4);
 	String buffer=buffer1;
 	int dpposition;
@@ -146,7 +146,7 @@ void a6seglcd::dispnum(float num){//传入显示的数据，最高位为小数�
 	//unsigned char lednum[10]={0x7D,0x60,0x3E,0x7A,0x63,0x5B,0x5F,0x70,0x7F,0x7B};//显示 0 1 2 3 4 5 6 7 8 9
 	unsigned  int i;
 	for(i=0;i<7;i++){
-		
+
 		if(buffer[i]=='0'){
 			buffer[i]=0x7D;
 		}
@@ -213,7 +213,7 @@ void a6seglcd::dispnum(float num){//传入显示的数据，最高位为小数�
 		wrone(8,buffer[1]|battery[1]);
 		wrone(10,buffer[0]|battery[0]);
 		break;
-		
+
 	case  2:
 		wrone(0,buffer[5]);//12.345
 		wrone(2,buffer[4]);
@@ -229,14 +229,14 @@ void a6seglcd::dispnum(float num){//传入显示的数据，最高位为小数�
 		wrone(6,buffer[0]|battery[2]);
 		wrone(8,0x00|battery[1]);
 		wrone(10,0x00|battery[0]);
-		
+
 		break;
 	    default:
 		break;
-		
+
 	}
-	
-	
-	
-	
+
+
+
+
 }

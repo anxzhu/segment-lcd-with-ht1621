@@ -1,4 +1,4 @@
-# ht1621-7-seg
+# HT1621 7 segment LCD Arduino library
 arduino library for 7-segment lcd based on ht1621 driver
 
 

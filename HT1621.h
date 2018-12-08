@@ -42,6 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define  TONEON   0X12             //0b1000 0001 0010  打开声音输出
 #define  TONEOFF  0X10             //0b1000 0001 0000 关闭声音输出
 #define  WDTDIS1  0X0A             //0b1000 0000 1010  禁止看门狗
+#define  BUFFERSIZE 12
 
 class  HT1621
 {
@@ -56,11 +57,12 @@ public:
 	void begin(int cs_p, int wr_p, int data_p);
 	void conf();//
 	void clear();//
-	void write(unsigned char addr, unsigned char sdata);//
+	void write(unsigned char addr, unsigned char sdata);
 	void backlighton();//
 	void backlightoff();//
 	void battlevel(int level);
 	void dispnum(float num);
+	void print(long num);
 	void display();
 	void noDisplay();
 private:
@@ -69,7 +71,7 @@ private:
 	int _data_p;
 	int _backlight_p;
 	bool _backlight_en;
-	char _buffer[12];
+	char _buffer[BUFFERSIZE];
 	unsigned char _battery[3];
 	void wrone(unsigned char addr, unsigned char sdata);
 	void wrclrdata(unsigned char addr, unsigned char sdata);

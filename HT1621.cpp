@@ -34,9 +34,13 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "floatToString.h"
 
 HT1621::HT1621(){
-		_battery[0] = 0x00;
-		_battery[1] = 0x00;
-		_battery[2] = 0x00;
+		_buffer[0] = 0x00;
+		_buffer[1] = 0x00;
+		_buffer[2] = 0x00;
+		_buffer[3] = 0x00;
+		_buffer[4] = 0x00;
+		_buffer[5] = 0x00;
+		_buffer[6] = 0x00;
 }
 
 void HT1621::begin(int cs_p,int wr_p,int data_p,int backlight_p)
@@ -143,35 +147,27 @@ void HT1621::wrCLR(unsigned char len) {
 		addr = addr + 2;
 	}
 }
-void HT1621::battlevel(int level) {  //电池顶
+void HT1621::battlevel(int level) {
 
+		_buffer[0] &= 0x7F;
+		_buffer[1] &= 0x7F;
+		_buffer[2] &= 0x7F;
 	switch(level){
 		case 0:
-			_battery[0] = 0x00;
-			_battery[1] = 0x00;
-			_battery[2] = 0x00;
 			break;
 		case 1:
-			_battery[0] = 0x00;
-			_battery[1] = 0x00;
-			_battery[2] = 0x80;
+			_buffer[2] |= 0x80;
 			break;
 		case 2:
-			_battery[0] = 0x00;
-			_battery[1] = 0x80;
-			_battery[2] = 0x80;
+			_buffer[1] |= 0x80;
+			_buffer[2] |= 0x80;
 			break;
 		case 3:
-			_battery[0] = 0x80;
-			_battery[1] = 0x80;
-			_battery[2] = 0x80;
-			break;
 		default:
-			_battery[0] = 0x80;
-			_battery[1] = 0x80;
-			_battery[2] = 0x80;
+			_buffer[0] |= 0x80;
+			_buffer[1] |= 0x80;
+			_buffer[2] |= 0x80;
 			break;
-
 	}
 
 	update();
@@ -187,178 +183,132 @@ void HT1621::write(unsigned char addr, unsigned char sdata){
 
 	wrone(addr,sdata);
 }
-void HT1621::dispnum(float num){//传入显示的数据，最高位为小数点和电量显示，显示数据为0.001-99999.9
+/*void HT1621::dispnum(float num){ //传入显示的数据，最高位为小数点和电量显示，显示数据为0.001-99999.9
 //
 
 	floatToString(_buffer,num,4);
+ char temp;
 
-
-
-  //为6  整数 如123456.
-	//5    一位小数 12345.6
-	//4    两位小数 1234.56
-	//3    三位小数 123.456
-	//2    三位小数 12.345
-	//1    三位小数 1.234
 	//unsigned char lednum[10]={0x7D,0x60,0x3E,0x7A,0x63,0x5B,0x5F,0x70,0x7F,0x7B};//显示 0 1 2 3 4 5 6 7 8 9
 	unsigned int i;
 	for(i=0;i<7;i++){
 
-		if(_buffer[i]=='0'){
-			_buffer[i]=0x7D;
+		if(temp=='0'){
+			_buffer[i]|=0x7D;
 		}
-		else if (_buffer[i]=='1'){
-			_buffer[i]=0x60;
+		else if (temp=='1'){
+			_buffer[i]|=0x60;
 		}
-		else if (_buffer[i]=='2'){
-			_buffer[i]=0x3e;
+		else if (temp=='2'){
+			_buffer[i]|=0x3e;
 		}
-		else if (_buffer[i]=='3'){
-			_buffer[i]=0x7a;
+		else if (temp=='3'){
+			_buffer[i]|=0x7a;
 		}
-		else if (_buffer[i]=='4'){
-			_buffer[i]=0x63;
+		else if (temp=='4'){
+			_buffer[i]|=0x63;
 		}
-		else if (_buffer[i]=='5'){
-			_buffer[i]=0x5b;
+		else if (temp=='5'){
+			_buffer[i]|=0x5b;
 		}
-		else if( _buffer[i]=='6'){
-			_buffer[i]=0x5f;
+		else if( temp=='6'){
+			_buffer[i]|=0x5f;
 		}
-		else if (_buffer[i]=='7'){
-			_buffer[i]=0x70;
+		else if (temp=='7'){
+			_buffer[i]|=0x70;
 		}
-		else if (_buffer[i]=='8'){
-			_buffer[i]=0x7f;
+		else if (temp=='8'){
+			_buffer[i]|=0x7f;
 		}
-		else if (_buffer[i]=='9'){
-			_buffer[i]=0x7b;
+		else if (temp=='9'){
+			_buffer[i]|=0x7b;
 		}
-		else if (_buffer[i]=='.'){
-			_buffer[i]=0xff;
+		else if (temp=='.'){
+			_buffer[i]|=0xff;
 		}
-		else if (_buffer[i]=='-'){
-			_buffer[i]=0x02;
+		else if (temp=='-'){
+			_buffer[i]|=0x02;
 		}
 	}
-/*	switch  (dpposition){
-	case  6:
-		wrone(0,_buffer[5]);//123456.
-		wrone(2,_buffer[4]);
-		wrone(4,_buffer[3]);
-		wrone(6,_buffer[2]|_battery[2]);
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-	case  5:
-		wrone(0,(_buffer[6]|0x80));//12345.6
-		wrone(2,_buffer[4]);
-		wrone(4,_buffer[3]);
-		wrone(6,_buffer[2]|_battery[2]);
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-	case  4:
-		wrone(0,_buffer[6]);//1234.56
-		wrone(2,(_buffer[5]|0x80));
-		wrone(4,_buffer[3]);
-		wrone(6, _buffer[2]|_battery[2]);//
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-	case  3:
-		wrone(0,_buffer[6]);//123.456
-		wrone(2,_buffer[5]);
-		wrone(4,(_buffer[4]|0x80));
-		wrone(6,_buffer[2]|_battery[2]);
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
 
-	case  2:
-		wrone(0,_buffer[5]);//12.345
-		wrone(2,_buffer[4]);
-		wrone(4,(_buffer[3]|0x80));
-		wrone(6,_buffer[1]|_battery[2]);
-		wrone(8,_buffer[0]|_battery[1]);
-		wrone(10,0x00|_battery[0]);
-		break;
-	case  1:
-		wrone(0,_buffer[4]);//1.234
-		wrone(2,_buffer[3]);
-		wrone(4,(_buffer[2]|0x80));
-		wrone(6,_buffer[0]|_battery[2]);
-		wrone(8,0x00|_battery[1]);
-		wrone(10,0x00|_battery[0]);
 
-		break;
-	    default:
-		break;
 
-	}*/
+		int dpposition;
+		//find the position of the decimal point (0xff) in the buffer
+		dpposition = strchr(_buffer, 0xff)-_buffer;
+		_buffer[dpposition] = 0x80 | _buffer[dpposition+1];
+
+		for(int i=BUFFERSIZE; i<dpposition-1; i--){
+		 _buffer[i] =  _buffer[i+1];
+
+		}
+
+
+
+
 	update();
+} */
+
+void HT1621::update(){ // takes the buffer and puts it straight into the driver
+
+		wrone(0, _buffer[5]);
+		wrone(2, _buffer[4]);
+		wrone(4, _buffer[3]);
+		wrone(6, _buffer[2]);
+		wrone(8, _buffer[1]);
+		wrone(10,_buffer[0]);
+
 }
 
-void HT1621::update(){
+void HT1621::print(long num){
+	if(num > 999999) // basic checks
+		num = 999999; // clip into 999999
+	if(num < -99999) // basic checks
+		num = -99999; // clip into -99999
 
-	int dpposition;
-	//find the position of the decimal point (0xff) in the buffer
-	dpposition = strchr(_buffer, 0xff)-_buffer;
+	char localbuffer[7];
+	snprintf(localbuffer,7, "%6li", num);
+	Serial.println(localbuffer);
 
+	for(int i=0; i<6; i++){
+		_buffer[i] &= 0x80;
+		switch(localbuffer[i]){
+			case '0':
+				_buffer[i] |= 0x7D;
+				break;
+			case '1':
+				_buffer[i] |= 0x60;
+				break;
+			case '2':
+				_buffer[i] |= 0x3e;
+				break;
+			case '3':
+				_buffer[i] |= 0x7a;
+				break;
+			case '4':
+				_buffer[i] |= 0x63;
+				break;
+			case '5':
+				_buffer[i] |= 0x5b;
+				break;
+			case '6':
+				_buffer[i] |= 0x5f;
+				break;
+			case '7':
+				_buffer[i] |= 0x70;
+				break;
+			case '8':
+				_buffer[i] |= 0x7f;
+				break;
+			case '9':
+				_buffer[i] |= 0x7b;
+				break;
+			case '-':
+				_buffer[i] |= 0x02;
+				break;
+			}
+		}
 
-	switch  (dpposition){
-	case  6:
-		wrone(0,_buffer[5]);//123456.
-		wrone(2,_buffer[4]);
-		wrone(4,_buffer[3]);
-		wrone(6,_buffer[2]|_battery[2]);
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-	case  5:
-		wrone(0,(_buffer[6]|0x80));//12345.6
-		wrone(2,_buffer[4]);
-		wrone(4,_buffer[3]);
-		wrone(6,_buffer[2]|_battery[2]);
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-	case  4:
-		wrone(0,_buffer[6]);//1234.56
-		wrone(2,(_buffer[5]|0x80));
-		wrone(4,_buffer[3]);
-		wrone(6, _buffer[2]|_battery[2]);//
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-	case  3:
-		wrone(0,_buffer[6]);//123.456
-		wrone(2,_buffer[5]);
-		wrone(4,(_buffer[4]|0x80));
-		wrone(6,_buffer[2]|_battery[2]);
-		wrone(8,_buffer[1]|_battery[1]);
-		wrone(10,_buffer[0]|_battery[0]);
-		break;
-
-	case  2:
-		wrone(0,_buffer[5]);//12.345
-		wrone(2,_buffer[4]);
-		wrone(4,(_buffer[3]|0x80));
-		wrone(6,_buffer[1]|_battery[2]);
-		wrone(8,_buffer[0]|_battery[1]);
-		wrone(10,0x00|_battery[0]);
-		break;
-	case  1:
-		wrone(0,_buffer[4]);//1.234
-		wrone(2,_buffer[3]);
-		wrone(4,(_buffer[2]|0x80));
-		wrone(6,_buffer[0]|_battery[2]);
-		wrone(8,0x00|_battery[1]);
-		wrone(10,0x00|_battery[0]);
-
-		break;
-			default:
-		break;
-	}
+		update();
 
 }

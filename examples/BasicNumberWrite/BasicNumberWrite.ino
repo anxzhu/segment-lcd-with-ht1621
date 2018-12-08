@@ -2,7 +2,7 @@
   HT1621 lcd;            
   void setup()
   {
-  lcd.begin(4,5,6,10);   //定义 cs wr data led+这几个管脚 difine  cs  write data   backlight  pins  
+  lcd.begin(13,12,7,10);   //定义 cs wr data led+这几个管脚 difine  cs  write data   backlight  pins  
   lcd.backlighton();   //开背光（关背光是 backlightoff() ） backlight
   lcd.conf();          //配置 config
   lcd.clr();           //清屏 clearscreen

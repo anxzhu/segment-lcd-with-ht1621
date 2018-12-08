@@ -63,7 +63,6 @@ public:
 	void dispnum(float num);
 	void display();
 	void noDisplay();
-	void update();
 private:
 	int _cs_p;
 	int _wr_p;
@@ -77,5 +76,6 @@ private:
 	void wrCLR(unsigned char len);
 	void wrDATA(unsigned char data, unsigned char cnt);
 	void wrCMD(unsigned char CMD);
+	void update();
 };
 #endif

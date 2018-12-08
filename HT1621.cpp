@@ -1,18 +1,40 @@
-/*********************************************************************
-This is a library for 6 segments lcd based on ht1621 drivers
+/*******************************************************************************
+Copyright 2016-2018 anxzhu (github.com/anxzhu)
+Copyright 2018 Valerio Nappi (github.com/5N44P) (changes)
+Based on segment-lcd-with-ht1621 from anxzhu (2016-2018)
+(https://github.com/anxzhu/segment-lcd-with-ht1621)
 
-  You can download all the source file at
-  ------> https://www.github.com/anxzhu
+Partially rewritten and extended by Valerio Nappi (github.com/5N44P) in 2018
 
-*********************************************************************/
+This file is part of the HT1621 arduino library, and thus under the MIT license.
+More info on the project and the license conditions on :
+https://github.com/5N44P/ht1621-7-seg
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+*******************************************************************************/
 
 #include <Arduino.h>
 #include "HT1621.h"
 #include "floatToString.h"
-#include "stdio.h"
-HT1621::HT1621()
-{
-}
+
+HT1621::HT1621(){}
+
 void HT1621::begin(int cs_p,int wr_p,int data_p,int backlight_p)
 {
 	pinMode(cs_p, OUTPUT);
@@ -25,6 +47,7 @@ void HT1621::begin(int cs_p,int wr_p,int data_p,int backlight_p)
 	_backlight_p=backlight_p;
 	_backlight_en=true;
 }
+
 void HT1621::begin(int cs_p,int wr_p,int data_p)
 {
 	pinMode(cs_p, OUTPUT);
@@ -35,6 +58,7 @@ void HT1621::begin(int cs_p,int wr_p,int data_p)
 	_data_p=data_p;
 	_backlight_en = false;
 }
+
 void HT1621::wrDATA(unsigned char data, unsigned char cnt) {
 	unsigned char i;
 	for (i = 0; i < cnt; i++) {

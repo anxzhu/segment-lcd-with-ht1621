@@ -237,6 +237,9 @@ void HT1621::dispnum(float num){//传入显示的数据，最高位为小数点�
 		else if (_buffer[i]=='.'){
 			_buffer[i]=0xff;
 		}
+		else if (_buffer[i]=='-'){
+			_buffer[i]=0x02;
+		}
 	}
 /*	switch  (dpposition){
 	case  6:

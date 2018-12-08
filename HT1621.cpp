@@ -14,40 +14,51 @@ unsigned char battery[3];
 HT1621::HT1621()
 {
 }
-void HT1621::begin(int cs,int wr,int dat,int backlight)
+void HT1621::begin(int cs_p,int wr_p,int data_p,int backlight_p)
 {
-	pinMode(cs, OUTPUT);
-	pinMode(wr, OUTPUT);
-	pinMode(dat, OUTPUT);
-	pinMode(backlight, OUTPUT);
-	_cs=cs;
-	_wr=wr;
-	_dat=dat;
-	_backlight=backlight;
+	pinMode(cs_p, OUTPUT);
+	pinMode(wr_p, OUTPUT);
+	pinMode(data_p, OUTPUT);
+	pinMode(backlight_p, OUTPUT);
+	_cs_p=cs_p;
+	_wr_p=wr_p;
+	_data_p=data_p;
+	_backlight_p=backlight_p;
+	_backlight_en=true;
+}
+void HT1621::begin(int cs_p,int wr_p,int data_p)
+{
+	pinMode(cs_p, OUTPUT);
+	pinMode(wr_p, OUTPUT);
+	pinMode(data_p, OUTPUT);
+	_cs_p=cs_p;
+	_wr_p=wr_p;
+	_data_p=data_p;
+	_backlight_en = false;
 }
 void HT1621::wrDATA(unsigned char data, unsigned char cnt) {
 	unsigned char i;
 	for (i = 0; i < cnt; i++) {
-		digitalWrite(_wr, LOW);
+		digitalWrite(_wr_p, LOW);
 		if (data & 0x80) {
-			digitalWrite(_dat, HIGH);
+			digitalWrite(_data_p, HIGH);
 		}
 		else
 		{
-			digitalWrite(_dat, LOW);
+			digitalWrite(_data_p, LOW);
 		}
-		digitalWrite(_wr, HIGH);
+		digitalWrite(_wr_p, HIGH);
 		data <<= 1;
 	}
 }
 void HT1621::wrclrdata(unsigned char addr, unsigned char sdata)
 {
 	addr <<= 2;
-	digitalWrite(_cs, LOW);
+	digitalWrite(_cs_p, LOW);
 	wrDATA(0xa0, 3);
 	wrDATA(addr, 6);
 	wrDATA(sdata, 8);
-	digitalWrite(_cs, HIGH);
+	digitalWrite(_cs_p, HIGH);
 }
 
 void HT1621::lcdon()
@@ -63,27 +74,29 @@ void HT1621::lcdoff()
 void HT1621::wrone(unsigned char addr, unsigned char sdata)
 {
 	addr <<= 2;
-	digitalWrite(_cs, LOW);
+	digitalWrite(_cs_p, LOW);
 	wrDATA(0xa0, 3);
 	wrDATA(addr, 6);
 	wrDATA(sdata, 8);
-	digitalWrite(_cs, HIGH);
+	digitalWrite(_cs_p, HIGH);
 }
 void HT1621::backlighton()
 {
-	digitalWrite(_backlight, HIGH);
+	if (_backlight_en)
+		digitalWrite(_backlight_p, HIGH);
 	delay(1);
 }
 void HT1621::backlightoff()
 {
-	digitalWrite(_backlight, LOW);
+	if(_backlight_en)
+		digitalWrite(_backlight_p, LOW);
 	delay(1);
 }
 void HT1621::wrCMD(unsigned char CMD) {  //100
-	digitalWrite(_cs, LOW);
+	digitalWrite(_cs_p, LOW);
 	wrDATA(0x80, 4);
 	wrDATA(CMD, 8);
-	digitalWrite(_cs, HIGH);
+	digitalWrite(_cs_p, HIGH);
 }
 void HT1621::conf()
 {

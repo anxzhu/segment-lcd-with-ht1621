@@ -19,12 +19,14 @@ This is a library for 6 segments lcd based on ht1621 drivers
 class  HT1621
 {
 public:
-	int cs;
-	int wr;
-	int dat;
-	int backlight;
+	int cs_p;
+	int wr_p;
+	int data_p;
+	int backlight_p;
+	bool backlight_en;
 	HT1621();
-	void begin(int cs, int wr, int dat,int backlight);
+	void begin(int cs_p, int wr_p, int data_p,int backlight_p);
+	void begin(int cs_p, int wr_p, int data_p);
 	void conf();//
 	void clr();//
 	void display(unsigned char addr, unsigned char sdata);//
@@ -45,9 +47,10 @@ public:
 	void lcdon();
 	void lcdoff();
 private:
-	int _cs;
-	int _wr;
-	int _dat;
-	int _backlight;
+	int _cs_p;
+	int _wr_p;
+	int _data_p;
+	int _backlight_p;
+	bool _backlight_en;
 };
 #endif

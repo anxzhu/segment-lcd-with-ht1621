@@ -61,12 +61,12 @@ void HT1621::wrclrdata(unsigned char addr, unsigned char sdata)
 	digitalWrite(_cs_p, HIGH);
 }
 
-void HT1621::lcdon()
+void HT1621::display()
 {
 	wrCMD(LCDON);
 }
 
-void HT1621::lcdoff()
+void HT1621::noDisplay()
 {
 	wrCMD(LCDOFF);
 }
@@ -134,12 +134,12 @@ void HT1621::bat3() {  //电池底
 void HT1621::bat3off() {  //电池中
 	battery[2]=0x00;//wrone(6, 0x80);
 }
-void HT1621::clr(){
+void HT1621::clear(){
 
 	wrCLR(16);
 
 }
-void HT1621::display(unsigned char addr, unsigned char sdata){
+void HT1621::write(unsigned char addr, unsigned char sdata){
 
 	wrone(addr,sdata);
 }

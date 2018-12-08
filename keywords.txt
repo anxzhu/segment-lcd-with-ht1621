@@ -14,8 +14,8 @@ HT1621	KEYWORD1
 
 begin	KEYWORD2
 conf	KEYWORD2
-clr	KEYWORD2
-display	KEYWORD2
+clear	KEYWORD2
+write	KEYWORD2
 backlighton KEYWORD2
 backlightoff KEYWORD2
 wrone	KEYWORD2
@@ -30,8 +30,8 @@ bat2off	KEYWORD2
 bat3	KEYWORD2
 bat3off	KEYWORD2
 dispnum	KEYWORD2
-lcdon	KEYWORD2
-lcdoff	KEYWORD2
+display KEYWORD2
+noDisplay	KEYWORD2
 
 
 #######################################

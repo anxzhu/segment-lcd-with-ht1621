@@ -28,8 +28,8 @@ public:
 	void begin(int cs_p, int wr_p, int data_p,int backlight_p);
 	void begin(int cs_p, int wr_p, int data_p);
 	void conf();//
-	void clr();//
-	void display(unsigned char addr, unsigned char sdata);//
+	void clear();//
+	void write(unsigned char addr, unsigned char sdata);//
 	void backlighton();//
 	void backlightoff();//
 	void wrone(unsigned char addr, unsigned char sdata);
@@ -44,8 +44,8 @@ public:
 	void bat3();
 	void bat3off();
 	void dispnum(float num);
-	void lcdon();
-	void lcdoff();
+	void display();
+	void noDisplay();
 private:
 	int _cs_p;
 	int _wr_p;

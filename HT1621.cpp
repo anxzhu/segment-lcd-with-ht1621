@@ -33,7 +33,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "HT1621.h"
 #include "floatToString.h"
 
-HT1621::HT1621(){}
+HT1621::HT1621(){
+		_battery[0] = 0x00;
+		_battery[1] = 0x00;
+		_battery[2] = 0x00;
+}
 
 void HT1621::begin(int cs_p,int wr_p,int data_p,int backlight_p)
 {
@@ -169,6 +173,8 @@ void HT1621::battlevel(int level) {  //电池顶
 			break;
 
 	}
+
+	update();
 }
 
 
@@ -186,16 +192,16 @@ void HT1621::dispnum(float num){//传入显示的数据，最高位为小数点�
 
 	floatToString(_buffer,num,4);
 
-	int dpposition;
-	dpposition = strchr(_buffer, '.')-_buffer;//寻找小数点位置  取前七位 因为最多显示七位
-	//为6  整数 如123456.
+
+
+  //为6  整数 如123456.
 	//5    一位小数 12345.6
 	//4    两位小数 1234.56
 	//3    三位小数 123.456
 	//2    三位小数 12.345
 	//1    三位小数 1.234
 	//unsigned char lednum[10]={0x7D,0x60,0x3E,0x7A,0x63,0x5B,0x5F,0x70,0x7F,0x7B};//显示 0 1 2 3 4 5 6 7 8 9
-	unsigned  int i;
+	unsigned int i;
 	for(i=0;i<7;i++){
 
 		if(_buffer[i]=='0'){
@@ -232,7 +238,7 @@ void HT1621::dispnum(float num){//传入显示的数据，最高位为小数点�
 			_buffer[i]=0xff;
 		}
 	}
-	switch  (dpposition){
+/*	switch  (dpposition){
 	case  6:
 		wrone(0,_buffer[5]);//123456.
 		wrone(2,_buffer[4]);
@@ -286,9 +292,70 @@ void HT1621::dispnum(float num){//传入显示的数据，最高位为小数点�
 	    default:
 		break;
 
+	}*/
+	update();
+}
+
+void HT1621::update(){
+
+	int dpposition;
+	//find the position of the decimal point (0xff) in the buffer
+	dpposition = strchr(_buffer, 0xff)-_buffer;
+
+
+	switch  (dpposition){
+	case  6:
+		wrone(0,_buffer[5]);//123456.
+		wrone(2,_buffer[4]);
+		wrone(4,_buffer[3]);
+		wrone(6,_buffer[2]|_battery[2]);
+		wrone(8,_buffer[1]|_battery[1]);
+		wrone(10,_buffer[0]|_battery[0]);
+		break;
+	case  5:
+		wrone(0,(_buffer[6]|0x80));//12345.6
+		wrone(2,_buffer[4]);
+		wrone(4,_buffer[3]);
+		wrone(6,_buffer[2]|_battery[2]);
+		wrone(8,_buffer[1]|_battery[1]);
+		wrone(10,_buffer[0]|_battery[0]);
+		break;
+	case  4:
+		wrone(0,_buffer[6]);//1234.56
+		wrone(2,(_buffer[5]|0x80));
+		wrone(4,_buffer[3]);
+		wrone(6, _buffer[2]|_battery[2]);//
+		wrone(8,_buffer[1]|_battery[1]);
+		wrone(10,_buffer[0]|_battery[0]);
+		break;
+	case  3:
+		wrone(0,_buffer[6]);//123.456
+		wrone(2,_buffer[5]);
+		wrone(4,(_buffer[4]|0x80));
+		wrone(6,_buffer[2]|_battery[2]);
+		wrone(8,_buffer[1]|_battery[1]);
+		wrone(10,_buffer[0]|_battery[0]);
+		break;
+
+	case  2:
+		wrone(0,_buffer[5]);//12.345
+		wrone(2,_buffer[4]);
+		wrone(4,(_buffer[3]|0x80));
+		wrone(6,_buffer[1]|_battery[2]);
+		wrone(8,_buffer[0]|_battery[1]);
+		wrone(10,0x00|_battery[0]);
+		break;
+	case  1:
+		wrone(0,_buffer[4]);//1.234
+		wrone(2,_buffer[3]);
+		wrone(4,(_buffer[2]|0x80));
+		wrone(6,_buffer[0]|_battery[2]);
+		wrone(8,0x00|_battery[1]);
+		wrone(10,0x00|_battery[0]);
+
+		break;
+			default:
+		break;
 	}
-
-
-
 
 }

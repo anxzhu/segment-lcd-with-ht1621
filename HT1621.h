@@ -63,6 +63,7 @@ public:
 	void dispnum(float num);
 	void display();
 	void noDisplay();
+	void update();
 private:
 	int _cs_p;
 	int _wr_p;

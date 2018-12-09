@@ -1,16 +1,20 @@
 /*
-  Hello World!
-  Displays the milliseconds passed since power on.
-  Using an HT1621 based 7-segment LCD with 6 digits
+  Battery Levels
+
+  Displays the various battery levels with 500ms 
+  pause between.
+
   The circuit:
   cs to pin 13
   wr to pin 12
   Data to pin 8
   backlight to pin 10
+
   Created 9 dec 2018
   By valerio\new (5N44P)
   
   https://github.com/5N44P/ht1621-7-seg
+
 */
 
 #include <HT1621.h> // include our library
@@ -32,6 +36,10 @@ void setup()
 }
 void loop()
 { 
-  lcd.print(millis()/1000.0, 3); // print the floating point seconds value with 3 decimal digits precision
-  delay(1); // wait 1 millisecond
+  lcd.battlevel(1);
+  delay(500);
+  lcd.battlevel(2);
+  delay(500);
+  lcd.battlevel(3);
+  delay(500);
 }

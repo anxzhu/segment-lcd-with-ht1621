@@ -53,7 +53,7 @@ public:
 	void clear();
 	void backlight();
 	void noBacklight();
-	void battlevel(int level);
+	void setBatteryLevel(int level);
 	void print(long num);
 	void print(float num);
 	void print(float num, int precision);

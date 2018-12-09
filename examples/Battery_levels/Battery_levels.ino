@@ -42,10 +42,10 @@ void setup(){
 }
 
 void loop(){
-  lcd.battlevel(1);
+  lcd.setBatteryLevel(1);
   delay(500);
-  lcd.battlevel(2);
+  lcd.setBatteryLevel(2);
   delay(500);
-  lcd.battlevel(3);
+  lcd.setBatteryLevel(3);
   delay(500);
 }

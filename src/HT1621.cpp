@@ -149,7 +149,7 @@ void HT1621::wrCLR(unsigned char len) {
 		addr = addr + 2;
 	}
 }
-void HT1621::battlevel(int level) {
+void HT1621::setBatteryLevel(int level) {
 	// zero out the previous (otherwise the or couldn't be possible)
 		_buffer[0] &= 0x7F;
 		_buffer[1] &= 0x7F;

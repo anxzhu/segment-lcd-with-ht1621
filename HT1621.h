@@ -54,7 +54,6 @@ public:
 	void backlighton();
 	void backlightoff();
 	void battlevel(int level);
-	//void dispnum(float num); // old func for reference
 	void print(long num);
 	void print(float num);
 	void print(float num, int precision);

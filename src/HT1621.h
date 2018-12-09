@@ -42,6 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #define  TONEON   0X12             //0b1000 0001 0010  打开声音输出
 #define  TONEOFF  0X10             //0b1000 0001 0000 关闭声音输出
 #define  WDTDIS1  0X0A             //0b1000 0000 1010  禁止看门狗
+#define  BUFFERSIZE 12
 
 class  HT1621
 {

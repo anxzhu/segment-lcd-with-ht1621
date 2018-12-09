@@ -12,13 +12,13 @@ Starts the lcd with the pin assignement declared. The backlight pin is optional
 * `void clear()`  
 Clears the display
 
-* `void backlighton()`  
+* `void backlight()`  
 Turns on the backlight 
 
-* `void backlightoff()`  
+* `void noBacklight()`  
 Turns off the backlight
 
-* `void battlevel(int level)`  
+* `void setBatteryLevel(int level)`  
 Accepts values from 0 to 3. Smaller values will be treated like 0, bigger values will be treated as 3. 0 turns off the battery symbol. Values from 1 to 3 will be represented by the rectangles above the battery symbol. 
 
 * `void print(long num)`  

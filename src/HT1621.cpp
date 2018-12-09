@@ -31,7 +31,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <Arduino.h>
 #include "HT1621.h"
-#include "floatToString.h"
 
 HT1621::HT1621(){
 		_buffer[0] = 0x00;

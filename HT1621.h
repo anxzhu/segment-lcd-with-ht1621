@@ -47,22 +47,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 class  HT1621
 {
 public:
-	int cs_p;
-	int wr_p;
-	int data_p;
-	int backlight_p;
-	bool backlight_en;
 	HT1621();
 	void begin(int cs_p, int wr_p, int data_p,int backlight_p);
 	void begin(int cs_p, int wr_p, int data_p);
-	void conf();//
-	void clear();//
-	void write(unsigned char addr, unsigned char sdata);
-	void backlighton();//
-	void backlightoff();//
+	void conf(); // legacy: why not in begin func?
+	void clear();
+	void backlighton();
+	void backlightoff();
 	void battlevel(int level);
-	void dispnum(float num);
+	//void dispnum(float num); // old func for reference
 	void print(long num);
+	void print(float num);
+	void print(float num, int precision);
 	void display();
 	void noDisplay();
 private:
@@ -78,6 +74,7 @@ private:
 	void wrCLR(unsigned char len);
 	void wrDATA(unsigned char data, unsigned char cnt);
 	void wrCMD(unsigned char CMD);
+	void setdecimalseparator(int dpposition);
 	void update();
 };
 #endif

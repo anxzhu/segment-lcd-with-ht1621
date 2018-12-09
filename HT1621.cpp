@@ -148,22 +148,24 @@ void HT1621::wrCLR(unsigned char len) {
 	}
 }
 void HT1621::battlevel(int level) {
-
+	// zero out the previous (otherwise the or couldn't be possible)
 		_buffer[0] &= 0x7F;
 		_buffer[1] &= 0x7F;
 		_buffer[2] &= 0x7F;
+
+	 // todo: reorder the cases to remove the breaks, should be faster (maybe)
 	switch(level){
-		case 0:
+		case 0: // battery indication off
 			break;
-		case 1:
+		case 1: // battery on and 1 segment
 			_buffer[2] |= 0x80;
 			break;
-		case 2:
+		case 2: // battery on and 2 segment
 			_buffer[1] |= 0x80;
 			_buffer[2] |= 0x80;
 			break;
-		case 3:
-		default:
+		case 3: // battery on and 3 segment
+		default:  // battery on and 3 segments for any other value (may be better all off?)
 			_buffer[0] |= 0x80;
 			_buffer[1] |= 0x80;
 			_buffer[2] |= 0x80;
@@ -179,10 +181,9 @@ void HT1621::clear(){
 	wrCLR(16);
 
 }
-void HT1621::write(unsigned char addr, unsigned char sdata){
 
-	wrone(addr,sdata);
-}
+// old code for reference
+
 /*void HT1621::dispnum(float num){ //传入显示的数据，最高位为小数点和电量显示，显示数据为0.001-99999.9
 //
 
@@ -250,7 +251,7 @@ void HT1621::write(unsigned char addr, unsigned char sdata){
 } */
 
 void HT1621::update(){ // takes the buffer and puts it straight into the driver
-
+		// the buffer is backwards with respect to the lcd. could be improved
 		wrone(0, _buffer[5]);
 		wrone(2, _buffer[4]);
 		wrone(4, _buffer[3]);
@@ -311,3 +312,62 @@ void HT1621::print(long num){
 		update();
 
 }
+
+void HT1621::print(float num){
+	// could be smarter and actually check how many
+	// non zeros we have in the decimals
+	print(num, 3);
+}
+
+void HT1621::print(float num, int precision){
+	if(num > 999999) // basic checks
+		num = 999999; // clip into 999999
+	if(num < -99999) // basic checks
+		num = -99999; // clip into -99999
+	if(precision > 3 && num > 0)
+		precision = 3; // if positive max precision allowed = 3
+	else if(precision > 2 && num < 0)
+		precision = 2;// if negative max precision allowed = 2
+	if(precision < 0)
+		precision = 0; // negative precision?!
+
+	long ingegerpart;
+	ingegerpart = ((long)(num*pow(10,precision)));
+
+	print(ingegerpart); // draw the integerized number
+	setdecimalseparator(precision); // draw the decimal point
+
+	update();
+}
+
+void HT1621::setdecimalseparator(int decimaldigits) {
+	 // zero out the eight bit
+		_buffer[3] &= 0x7F;
+		_buffer[4] &= 0x7F;
+		_buffer[5] &= 0x7F;
+
+	if( decimaldigits <= 0 || decimaldigits > 3){
+		return;
+	}
+
+	// 3 is the digit offset
+	// the first three eights bits in the buffer are for the battery signs
+	// the last three are for the decimal point
+	_buffer[6-decimaldigits] |= 0x80;
+
+	// refactoring, old code for reference
+	/*switch(decimaldigits){
+		case 1:
+			_buffer[5] |= 0x80;
+			break;
+		case 2:
+			_buffer[4] |= 0x80;
+			break;
+		case 3:
+			_buffer[3] |= 0x80;
+			break;
+		case 0:
+		default:
+			break;
+	}*/
+	}

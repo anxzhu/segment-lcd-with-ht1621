@@ -155,22 +155,15 @@ void HT1621::battlevel(int level) {
 		_buffer[1] &= 0x7F;
 		_buffer[2] &= 0x7F;
 
-	 // todo: reorder the cases to remove the breaks, should be faster (maybe)
 	switch(level){
-		case 0: // battery indication off
-			break;
+		case 3: // battery on and all 3 segments
+			_buffer[0] |= 0x80;
+		case 2: // battery on and 2 segments
+			_buffer[1] |= 0x80;
 		case 1: // battery on and 1 segment
 			_buffer[2] |= 0x80;
-			break;
-		case 2: // battery on and 2 segment
-			_buffer[1] |= 0x80;
-			_buffer[2] |= 0x80;
-			break;
-		case 3: // battery on and 3 segment
-		default:  // battery on and 3 segments for any other value (may be better all off?)
-			_buffer[0] |= 0x80;
-			_buffer[1] |= 0x80;
-			_buffer[2] |= 0x80;
+		case 0: // battery indication off
+		default:
 			break;
 	}
 

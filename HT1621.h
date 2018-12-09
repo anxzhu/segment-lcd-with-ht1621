@@ -50,7 +50,6 @@ public:
 	HT1621();
 	void begin(int cs_p, int wr_p, int data_p,int backlight_p);
 	void begin(int cs_p, int wr_p, int data_p);
-	void conf(); // legacy: why not in begin func?
 	void clear();
 	void backlighton();
 	void backlightoff();
@@ -75,6 +74,7 @@ private:
 	void wrDATA(unsigned char data, unsigned char cnt);
 	void wrCMD(unsigned char CMD);
 	void setdecimalseparator(int dpposition);
+	void config(); // legacy: why not in begin func
 	void update();
 };
 #endif

@@ -54,6 +54,8 @@ void HT1621::begin(int cs_p,int wr_p,int data_p,int backlight_p)
 	_data_p=data_p;
 	_backlight_p=backlight_p;
 	_backlight_en=true;
+	config();
+
 }
 
 void HT1621::begin(int cs_p,int wr_p,int data_p)
@@ -65,6 +67,7 @@ void HT1621::begin(int cs_p,int wr_p,int data_p)
 	_wr_p=wr_p;
 	_data_p=data_p;
 	_backlight_en = false;
+	config();
 }
 
 void HT1621::wrDATA(unsigned char data, unsigned char cnt) {
@@ -129,7 +132,7 @@ void HT1621::wrCMD(unsigned char CMD) {  //100
 	wrDATA(CMD, 8);
 	digitalWrite(_cs_p, HIGH);
 }
-void HT1621::conf()
+void HT1621::config()
 {
 	wrCMD(BIAS);
 	wrCMD(RC256);

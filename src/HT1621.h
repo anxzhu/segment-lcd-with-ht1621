@@ -51,8 +51,8 @@ public:
 	void begin(int cs_p, int wr_p, int data_p,int backlight_p);
 	void begin(int cs_p, int wr_p, int data_p);
 	void clear();
-	void backlighton();
-	void backlightoff();
+	void backlight();
+	void noBacklight();
 	void battlevel(int level);
 	void print(long num);
 	void print(float num);

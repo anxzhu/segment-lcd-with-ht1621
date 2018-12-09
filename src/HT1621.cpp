@@ -113,13 +113,13 @@ void HT1621::wrone(unsigned char addr, unsigned char sdata)
 	wrDATA(sdata, 8);
 	digitalWrite(_cs_p, HIGH);
 }
-void HT1621::backlighton()
+void HT1621::backlight()
 {
 	if (_backlight_en)
 		digitalWrite(_backlight_p, HIGH);
 	delay(1);
 }
-void HT1621::backlightoff()
+void HT1621::noBacklight()
 {
 	if(_backlight_en)
 		digitalWrite(_backlight_p, LOW);

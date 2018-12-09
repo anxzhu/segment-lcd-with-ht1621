@@ -14,8 +14,8 @@ HT1621	KEYWORD1
 
 begin	KEYWORD2
 clear	KEYWORD2
-backlighton KEYWORD2
-backlightoff KEYWORD2
+backlight KEYWORD2
+noBacklight KEYWORD2
 battlevel KEYWORD2
 print KEYWORD2
 display KEYWORD2

@@ -1,5 +1,5 @@
-# HT1621 7 segment LCD Arduino library
-Arduino library for 7-segment lcds based on the HT1621 driver.
+# HT1621 7 segment LCD Arduino librar
+Arduino library for 7-segment lcds based on the HT1621 driver. Very often marked as PDC-6X1.
 
 <img src="extras/photo.jpg" alt="photo" width="500">
 

@@ -29,6 +29,7 @@ void a6seglcd::wrDATA(unsigned char data, unsigned char cnt) {
 	unsigned char i;
 	for (i = 0; i < cnt; i++) {
 		digitalWrite(_wr, LOW);
+		delayMicroseconds(4);
 		if (data & 0x80) {
 			digitalWrite(_dat, HIGH);
 		}
@@ -37,6 +38,7 @@ void a6seglcd::wrDATA(unsigned char data, unsigned char cnt) {
 			digitalWrite(_dat, LOW);
 		}
 		digitalWrite(_wr, HIGH);
+		delayMicroseconds(4);
 		data <<= 1;
 	}
 }

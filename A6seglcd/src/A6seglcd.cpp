@@ -7,7 +7,7 @@ This is a library for 6 segments lcd based on ht1621 drivers
 *********************************************************************/
 
 #include <Arduino.h>
-#include "a6seglcd.h"
+#include "A6seglcd.h"
 #include "floatToString.h"
 #include "stdio.h"
 unsigned char battery[3];

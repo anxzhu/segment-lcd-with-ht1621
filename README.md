@@ -11,7 +11,7 @@ Restart the IDE.
 
 * use   lcd.dispnum(3.141);    to display the number such as 3.141
 
-* see .ino files to learn more about it  
+* look at  .ino files to learn more about it  
   
     
       

@@ -73,6 +73,7 @@ void HT1621::wrDATA(unsigned char data, unsigned char cnt) {
 	unsigned char i;
 	for (i = 0; i < cnt; i++) {
 		digitalWrite(_wr_p, LOW);
+		delayMicroseconds(4);
 		if (data & 0x80) {
 			digitalWrite(_data_p, HIGH);
 		}
@@ -81,6 +82,7 @@ void HT1621::wrDATA(unsigned char data, unsigned char cnt) {
 			digitalWrite(_data_p, LOW);
 		}
 		digitalWrite(_wr_p, HIGH);
+		delayMicroseconds(4);
 		data <<= 1;
 	}
 }

@@ -14,11 +14,11 @@ HT1621	KEYWORD1
 
 begin	KEYWORD2
 clear	KEYWORD2
-backlight KEYWORD2
-noBacklight KEYWORD2
-setBatteryLevel KEYWORD2
-print KEYWORD2
-display KEYWORD2
+backlight	KEYWORD2
+noBacklight	KEYWORD2
+setBatteryLevel	KEYWORD2
+print	KEYWORD2
+display	KEYWORD2
 noDisplay	KEYWORD2
 
 

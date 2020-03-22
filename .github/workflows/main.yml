@@ -1,4 +1,4 @@
-- name: Test compile for Arduino
+  name: Test compile for Arduino
   uses: ArminJo/arduino-test-compile@v1.0.0
   with:
     # Version of arduino-cli to use when builing. Current (3/2020) one is 0.9.0.

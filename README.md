@@ -4,7 +4,7 @@ Arduino library for 7-segment lcds based on the HT1621 driver. Very often marked
 <img src="extras/photo.jpg" alt="photo" width="500">
 
 Based on the bitbanging efforts by [anxzhu](https://github.com/anxzhu) (2016-2018).  
-APIs rewritten in 2018 to follow the LiquidCrystal format by [valerio\new](https://github.com/5N44P).
+APIs rewritten in 2018 to follow the LiquidCrystal format by [valerio\new](https://github.com/valerionew).
 
 ## APIs reference
 

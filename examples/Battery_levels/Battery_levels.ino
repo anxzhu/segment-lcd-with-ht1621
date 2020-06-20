@@ -13,7 +13,7 @@
   Created 9 dec 2018
   By valerio\new (5N44P)
 
-  https://github.com/5N44P/ht1621-7-seg
+  https://github.com/valerionew/ht1621-7-seg
 
 */
 

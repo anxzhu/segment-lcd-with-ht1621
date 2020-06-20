@@ -1,14 +1,14 @@
 /*******************************************************************************
 Copyright 2016-2018 anxzhu (github.com/anxzhu)
-Copyright 2018-2020 Valerio Nappi (github.com/5N44P) (changes)
+Copyright 2018-2020 Valerio Nappi (github.com/valerionew) (changes)
 Based on segment-lcd-with-ht1621 from anxzhu (2016-2018)
 (https://github.com/anxzhu/segment-lcd-with-ht1621)
 
-Partially rewritten and extended by Valerio Nappi (github.com/5N44P) in 2018
+Partially rewritten and extended by Valerio Nappi (github.com/valerionew) in 2018
 
 This file is part of the HT1621 arduino library, and thus under the MIT license.
 More info on the project and the license conditions on :
-https://github.com/5N44P/ht1621-7-seg
+https://github.com/valerionew/ht1621-7-seg
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal in

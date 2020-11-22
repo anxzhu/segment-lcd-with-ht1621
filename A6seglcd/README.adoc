@@ -1,8 +1,0 @@
-=Library for Arduino =
-
-
-== License ==
-
-
- MIT License
-
